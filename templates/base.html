@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f7f2">
+  <title>{% block title %}好好食記{% endblock %} · 好好食記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body data-page="{{ request.endpoint }}">
+  <header class="topbar wrap">
+    <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">食</span><span>好好食記<small>MY FOOD JOURNAL</small></span></a>
+    <span class="top-note">把日常，好好收藏</span>
+  </header>
+  <main class="wrap page-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}" role="status">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <nav class="bottom-nav" aria-label="主要導覽">
+    <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}"><span aria-hidden="true">⌂</span><small>首頁</small></a>
+    <a href="{{ url_for('calendar_page') }}" class="{% if request.endpoint == 'calendar_page' %}active{% endif %}"><span aria-hidden="true">▦</span><small>日曆</small></a>
+    <a href="{{ url_for('add_record') }}" class="add-nav" aria-label="新增紀錄"><span aria-hidden="true">＋</span></a>
+    <a href="{{ url_for('statistics') }}" class="{% if request.endpoint == 'statistics' %}active{% endif %}"><span aria-hidden="true">◔</span><small>統計</small></a>
+    <a href="{{ url_for('profile') }}" class="{% if request.endpoint == 'profile' %}active{% endif %}"><span aria-hidden="true">◎</span><small>我的</small></a>
+  </nav>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

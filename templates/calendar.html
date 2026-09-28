@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}飲食日曆{% endblock %}
+{% block content %}
+<section class="page-heading"><p class="eyebrow">A MONTH OF LITTLE MOMENTS</p><h1>飲食日曆</h1><p>每一個點，都是曾經好好吃飯的證明。</p></section>
+<section class="calendar-panel">
+  <div class="month-switch"><a href="{{ url_for('calendar_page', year=previous[0], month=previous[1]) }}" aria-label="上個月">←</a><h2>{{ year }}<span>年</span> {{ '%02d'|format(month) }}<span>月</span></h2><a href="{{ url_for('calendar_page', year=next_month[0], month=next_month[1]) }}" aria-label="下個月">→</a></div>
+  <div class="calendar-grid weekday-row">{% for day in ['日','一','二','三','四','五','六'] %}<span>{{ day }}</span>{% endfor %}</div>
+  <div class="calendar-grid day-grid">{% for week in weeks %}{% for day in week %}{% if day %}<a class="day-cell {% if selected_day == day %}selected{% endif %}" data-day="{{ day }}" href="{{ url_for('calendar_page', year=year, month=month, day=day) }}"><span>{{ day }}</span><i hidden></i></a>{% else %}<span class="day-cell empty"></span>{% endif %}{% endfor %}{% endfor %}</div>
+  <div class="calendar-legend"><span><i></i>有飲食紀錄</span><span>數字代表當日餐數</span></div>
+</section>
+{% if selected_day %}<section class="section-heading selected-heading"><div><p class="eyebrow">{{ year }}.{{ '%02d'|format(month) }}.{{ '%02d'|format(selected_day) }}</p><h2>{{ selected_day }} 日的餐桌 <span id="selected-count">0</span></h2></div><a class="quiet-link" href="{{ url_for('add_record') }}">補記一餐　＋</a></section>
+<div class="food-grid" id="selected-records"></div><div class="inline-empty" id="selected-empty">這天還沒有紀錄。 <a href="{{ url_for('add_record') }}">新增一餐 ＋</a></div>{% endif %}
+{% endblock %}

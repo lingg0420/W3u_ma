@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ '編輯紀錄' if editing else '新增紀錄' }}{% endblock %}
+{% block content %}
+<section class="form-heading"><a class="back-link" href="{{ url_for('home') }}">← 回首頁</a><p class="eyebrow">ONE BITE AT A TIME</p><h1>{{ '編輯這一餐' if editing else '記下這一餐' }}</h1><p>好味道，值得被記住。</p></section>
+<div class="record-form" id="record-form" data-record-id="{{ record_id }}" data-editing="{{ 'true' if editing else 'false' }}">
+  <label class="field-label">食物照片 <span>選填</span></label>
+  <label class="upload-box" for="image-input">
+    <img id="image-preview" alt="照片預覽" hidden><span class="upload-icon">＋</span><strong>拍照或從相簿選擇</strong><small>JPG、PNG、WebP，最大 6 MB</small>
+    <input id="image-input" type="file" accept="image/*" capture="environment">
+  </label>
+  <label class="check-row" id="remove-image-row" hidden><input type="checkbox" id="remove-image"> 移除目前照片</label>
+  <label class="field-label" for="food-name">食物名稱 <span>必填</span></label>
+  <input id="food-name" class="text-input" placeholder="例如：番茄蛋包飯" maxlength="100" required>
+  <div class="field-pair">
+    <div><label class="field-label" for="meal-type">餐別 <span>必填</span></label><select id="meal-type" class="text-input" required><option value="">選擇餐別</option>{% for meal in meals %}<option value="{{ meal }}">{{ meal }}</option>{% endfor %}</select></div>
+    <div><label class="field-label" for="cuisine-type">料理類型 <span>必填</span></label><select id="cuisine-type" class="text-input" required><option value="">選擇料理</option>{% for cuisine in cuisines %}<option value="{{ cuisine }}">{{ cuisine }}</option>{% endfor %}</select></div>
+  </div>
+  <label class="field-label" for="eaten-at">吃飯時間 <span>必填</span></label>
+  <input id="eaten-at" class="text-input" type="datetime-local" required>
+  <label class="field-label" for="tags">一般標籤 <span>可多個，用逗號分隔</span></label>
+  <input id="tags" class="text-input" placeholder="拉麵, 外食, 聚餐" list="tag-suggestions" maxlength="300">
+  <datalist id="tag-suggestions"></datalist>
+  <label class="field-label" for="note">心得備註 <span>選填</span></label>
+  <textarea id="note" class="text-input note-input" placeholder="這餐有什麼值得記下來？" maxlength="500"></textarea>
+  <p class="form-error" id="form-error" role="alert" hidden></p>
+  <button class="button primary save-button" id="save-record" type="button">{{ '儲存修改' if editing else '完成紀錄' }} <span>↗</span></button>
+</div>
+{% endblock %}

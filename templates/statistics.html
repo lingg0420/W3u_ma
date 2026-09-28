@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}每月統計{% endblock %}
+{% block content %}
+<section class="page-heading stats-heading"><p class="eyebrow">TASTES OF THE MONTH</p><h1>吃得很有滋味</h1><p>看看這個月，味蕾去了哪些地方。</p></section>
+<div class="month-switch stats-month"><a href="{{ url_for('statistics', year=previous[0], month=previous[1]) }}" aria-label="上個月">←</a><h2>{{ year }}<span>年</span> {{ '%02d'|format(month) }}<span>月</span></h2><a href="{{ url_for('statistics', year=following[0], month=following[1]) }}" aria-label="下個月">→</a></div>
+<section class="total-strip"><span class="total-mark">餐</span><div><small>THIS MONTH</small><p>本月共紀錄 <strong id="month-total">0</strong> 餐</p></div><span class="total-spark">✳</span></section>
+<section class="stats-section"><div class="section-heading compact"><div><p class="eyebrow">CUISINE MIX</p><h2>料理地圖</h2></div><span class="section-note"><span id="cuisine-kind-count">0</span> 種料理</span></div>
+<div class="cuisine-chart" id="cuisine-chart"><div class="pie-chart" id="pie-chart"><div><strong id="pie-total">0</strong><small>餐</small></div></div><div class="cuisine-legend" id="cuisine-legend"></div></div><div class="inline-empty" id="cuisine-empty">這個月還沒有紀錄，新增一餐來開始累積吧。</div></section>
+<section class="stats-section tags-section"><div class="section-heading compact"><div><p class="eyebrow">MOST LOVED</p><h2>本月熱門標籤</h2></div><span class="section-note">TOP 5</span></div>
+<ol class="popular-list" id="popular-tags"></ol><div class="inline-empty" id="tags-empty">加上標籤後，最常出現的好味道會在這裡。</div></section>
+{% endblock %}

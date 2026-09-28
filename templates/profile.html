@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}我的食記{% endblock %}
+{% block content %}
+<section class="profile-cover"><div class="profile-avatar">食</div><p class="eyebrow">YOUR LITTLE FOOD ARCHIVE</p><h1>我的食記</h1><p>好好吃飯，也好好記得。</p></section>
+<section class="profile-stats"><div><strong id="profile-total">0</strong><span>累積餐數</span></div><div><strong id="profile-tags">0</strong><span>收藏標籤</span></div><div><strong>{{ cuisines|length }}</strong><span>料理類型</span></div></section>
+<section class="profile-links"><a href="{{ url_for('calendar_page') }}"><span class="link-icon">▦</span><span><strong>飲食日曆</strong><small>回到那些好好吃飯的日子</small></span><b>↗</b></a><a href="{{ url_for('statistics') }}"><span class="link-icon">◔</span><span><strong>每月統計</strong><small>看看最近的飲食習慣</small></span><b>↗</b></a><a href="{{ url_for('add_record') }}"><span class="link-icon">＋</span><span><strong>新增一餐</strong><small>把今天的味道收進來</small></span><b>↗</b></a></section>
+<p class="profile-footnote">飲食紀錄只儲存在這個瀏覽器，不會上傳到網站伺服器。</p>
+{% endblock %}

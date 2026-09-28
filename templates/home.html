@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}今天吃了什麼{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="hero-copy"><p class="eyebrow">DAILY FOOD JOURNAL</p><h1>今天吃了<br><em>什麼好料？</em></h1><p class="hero-date">{{ today.strftime('%Y 年 %m 月 %d 日').replace(' 0', ' ') }} <span>把每一餐，變成生活的小收藏。</span></p></div>
+  <div class="hero-image" role="img" aria-label="色彩豐富的一餐"></div>
+</section>
+<section class="section-heading"><div><p class="eyebrow">{{ today.strftime('%A')|replace('Monday','MON')|replace('Tuesday','TUE')|replace('Wednesday','WED')|replace('Thursday','THU')|replace('Friday','FRI')|replace('Saturday','SAT')|replace('Sunday','SUN') }}</p><h2>今日餐桌 <span id="today-count">0</span></h2></div><a class="quiet-link" href="{{ url_for('calendar_page') }}">回顧日記 <b>↗</b></a></section>
+<div class="food-grid" id="today-records"></div>
+<section class="empty-state" id="today-empty"><div class="empty-plate"><span>✳</span></div><h3>今天的餐桌，還在等你</h3><p>記下一餐，留住好好生活的味道。</p><a class="button primary" href="{{ url_for('add_record') }}">＋　新增第一筆</a></section>
+{% endblock %}
